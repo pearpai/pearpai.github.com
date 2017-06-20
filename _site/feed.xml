@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PearPai Blog</title>
+    <title>Pearpai Blog</title>
     <description>关于交互、设计与工匠 | Pearpai，Interaction Design，Smith | 这里是 @Pearpai 的个人博客。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 20 Jun 2017 15:51:27 +0800</pubDate>
-    <lastBuildDate>Tue, 20 Jun 2017 15:51:27 +0800</lastBuildDate>
+    <pubDate>Tue, 20 Jun 2017 16:34:13 +0800</pubDate>
+    <lastBuildDate>Tue, 20 Jun 2017 16:34:13 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
