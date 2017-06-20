@@ -1,10 +1,10 @@
 # Site settings
-title: Pearpai Blog
-SEOTitle: Pearpai的博客 | Pearpai Blog
+title: PearPai Blog
+SEOTitle: Pearpai的博客 | PearPai Blog
 header-img: img/home-bg.jpg
 email: 469901870@qq.com
 description: "关于交互、设计与工匠 | Pearpai，Interaction Design，Smith | 这里是 @Pearpai 的个人博客。"
-keyword: "Pearpai Blog, 博客, 个人网站, 互联网, 前端, 设计, 产品, 交互"
+keyword: "PearPai Blog, 博客, 个人网站, 互联网, 前端, 设计, 产品, 交互"
 url: "http://pearpai.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 

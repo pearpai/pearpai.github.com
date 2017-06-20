@@ -1,3 +1,3 @@
-# Pearpai Blog 模板
+# PearPai Blog 模板
 
-### [View Live Pearpai Blog &rarr;](http://pearpai.github.io)
+### [View Live PearPai Blog &rarr;](http://pearpai.github.io)
