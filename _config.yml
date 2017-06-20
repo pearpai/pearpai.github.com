@@ -70,7 +70,7 @@ ga_domain: zoecie.com
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "写段沾点艺术的代码。"
-sidebar-avatar: /img/avatar-pearpai.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/pearpai.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
