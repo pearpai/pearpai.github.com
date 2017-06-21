@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "kfka 2.12 Java 连接Demo"
-date:       2017-06-20 17:30:00
+date:       UTC2017-06-20 17:30:00
 author:     "Pearpai"
 header-img: "img/tag-bg.jpg"
 catalog: true
