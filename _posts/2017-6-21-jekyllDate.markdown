@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Jekyll MarkDown 文件date 当前时间不展示文档"
-date:       UTC 2017-06-21 09:06:00
+date:       UTC2017-06-21 09:06:00
 author:     "Pearpai"
 header-img: "img/tag-bg.jpg"
 catalog: true
@@ -16,7 +16,7 @@ tags:
 ```
 layout:     post
 title:      "Jekyll MarkDown 文件date 当前时间不展示文档"
-date:       UTC 2017-06-21 09:06:00
+date:       UTC2017-06-21 09:06:00
 author:     "Pearpai"
 header-img: "img/tag-bg.jpg"
 catalog: true
