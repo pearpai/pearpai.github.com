@@ -13,7 +13,7 @@ baseurl: ""                             # for example, '/blog' if your blog host
 # SNS settings
 RSS: false
 weibo_username:     u/2035644150
-zhihu_username:     wuyunfeng-45
+zhihu_username:     wuyunfeng-45/activities
 github_username:    pearpai
 #twitter_username:  pearpai
 facebook_username:  pearpai
@@ -54,6 +54,8 @@ kramdown:
 duoshuo_username: pearpai
 # Share component is depend on Comment so we can NOT use share only.
 duoshuo_share: false                     # set to false if you want to use Comment without Sharing
+
+intensedebate_comments: true
 
 
 

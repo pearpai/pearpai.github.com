@@ -61,6 +61,9 @@ layout: default
 				{{ content }}
 
                 <hr>
+                {% if site.intensedebate_comments %}
+                  {% include intensedebate-comments.html %}
+                {% endif %}
 
                 {% if site.duoshuo_share && site.duoshuo_username %}
                 <!-- 多说 Share start -->
@@ -128,7 +131,7 @@ layout: default
                 <!-- disqus 评论框 end -->
                 {% endif %}
 
-            </div>  
+            </div>
 
     <!-- Side Catalog Container -->
         {% if page.catalog %}
