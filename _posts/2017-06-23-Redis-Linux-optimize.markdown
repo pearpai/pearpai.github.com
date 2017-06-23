@@ -17,6 +17,7 @@ tags:
 **WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.**
 上述为启动日志，提示修改参数128 -> 511
 **somaxconn：**系统中每个端口最大的监听队列的长度，这是个全局参数，默认值为128，这个里的数值根据实际情况进行修改。一般修改为1024。
+
 **执行方式：** echo 511 >/proc/sys/net/core/somaxconn
 
 ### 2.内存分配策略：vm.overcommit_memory
