@@ -98,3 +98,4 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 sh-4.2# cat /proc/{pid}/smaps |grep Swap
 ```
 因为理解有限大家如需深入理解[请点此处](https://www.douban.com/note/349467816/)
+推荐：[docker-redis 集群搭建](https://github.com/pearpai/docker-study) 欢迎各位参与讨论
