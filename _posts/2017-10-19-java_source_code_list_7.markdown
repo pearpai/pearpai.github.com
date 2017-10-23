@@ -533,18 +533,24 @@ public class ArrayList<E> extends AbstractList<E>
         } finally {
             // Preserve behavioral compatibility with AbstractCollection,
             // even if c.contains() throws.
+            // 这是个保护措施c.contains() 可能会 throws 抛错
+            // 如果发生此情况 将后续的元素 将后续的元素 继续复制到 elementData
             if (r != size) {
                 System.arraycopy(elementData, r,
                                  elementData, w,
                                  size - r);
+                // 此时更新 复制元素的索引位置
                 w += size - r;
             }
+            // w != size 说明有部分元素 被移除
             if (w != size) {
-                // clear to let GC do its work
+                // 移除引用，使得可以进行后续的系统GC操作
                 for (int i = w; i < size; i++)
                     elementData[i] = null;
+                // 更新操作数
                 modCount += size - w;
                 size = w;
+                // 返回修改状态
                 modified = true;
             }
         }
@@ -552,52 +558,48 @@ public class ArrayList<E> extends AbstractList<E>
     }
 
     /**
-     * Save the state of the <tt>ArrayList</tt> instance to a stream (that
-     * is, serialize it).
-     *
-     * @serialData The length of the array backing the <tt>ArrayList</tt>
-     *             instance is emitted (int), followed by all of its elements
-     *             (each an <tt>Object</tt>) in the proper order.
+     * 定制序列化过程
      */
     private void writeObject(java.io.ObjectOutputStream s)
         throws java.io.IOException{
-        // Write out element count, and any hidden stuff
+        // 设置当前的操作数为期望的操作数
         int expectedModCount = modCount;
+        // 将当前的类写入一个非静态同时非暂时性的域到这个流中
         s.defaultWriteObject();
 
-        // Write out size as capacity for behavioural compatibility with clone()
+        // 写入容量 与 clone() 兼容
         s.writeInt(size);
 
-        // Write out all elements in the proper order.
+        // 将elementData 对象顺序的写入到流中
         for (int i=0; i<size; i++) {
             s.writeObject(elementData[i]);
         }
-
+        // 如果操作数 与期望的操作数 说明有其他线程对集合进行了操作，此时抛错
         if (modCount != expectedModCount) {
             throw new ConcurrentModificationException();
         }
     }
 
     /**
-     * Reconstitute the <tt>ArrayList</tt> instance from a stream (that is,
-     * deserialize it).
+     * 从流中重新进行实例化（也就是说反序列化）
      */
     private void readObject(java.io.ObjectInputStream s)
         throws java.io.IOException, ClassNotFoundException {
         elementData = EMPTY_ELEMENTDATA;
 
-        // Read in size, and any hidden stuff
+        // 将当前的类读入一个非静态同时非暂时性的域到这个流中
         s.defaultReadObject();
 
-        // Read in capacity
+        // 读取size
         s.readInt(); // ignored
 
         if (size > 0) {
             // be like clone(), allocate array based upon size not capacity
+            // 将要进行克隆，对容量进行设置
             ensureCapacityInternal(size);
 
             Object[] a = elementData;
-            // Read in all elements in the proper order.
+            // 以适当的顺序读取多有对象
             for (int i=0; i<size; i++) {
                 a[i] = s.readObject();
             }
@@ -605,41 +607,25 @@ public class ArrayList<E> extends AbstractList<E>
     }
 
     /**
-     * Returns a list iterator over the elements in this list (in proper
-     * sequence), starting at the specified position in the list.
-     * The specified index indicates the first element that would be
-     * returned by an initial call to {@link ListIterator#next next}.
-     * An initial call to {@link ListIterator#previous previous} would
-     * return the element with the specified index minus one.
-     *
-     * <p>The returned list iterator is <a href="#fail-fast"><i>fail-fast</i></a>.
-     *
-     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * 返回一个以指定位置开始的迭代器
      */
     public ListIterator<E> listIterator(int index) {
+        // 判断索引位置是否越界
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index: "+index);
+        // 返回实例迭代器
         return new ListItr(index);
     }
 
     /**
-     * Returns a list iterator over the elements in this list (in proper
-     * sequence).
-     *
-     * <p>The returned list iterator is <a href="#fail-fast"><i>fail-fast</i></a>.
-     *
-     * @see #listIterator(int)
+     * 返回集合的迭代器 以0 开始的
      */
     public ListIterator<E> listIterator() {
         return new ListItr(0);
     }
 
     /**
-     * Returns an iterator over the elements in this list in proper sequence.
-     *
-     * <p>The returned iterator is <a href="#fail-fast"><i>fail-fast</i></a>.
-     *
-     * @return an iterator over the elements in this list in proper sequence
+     * 返回一个 以 合适的顺序 集合所有元素的迭代
      */
     public Iterator<E> iterator() {
         return new Itr();
@@ -647,66 +633,95 @@ public class ArrayList<E> extends AbstractList<E>
 
     /**
      * An optimized version of AbstractList.Itr
+     * 对AbstractList.Itr 的最优化版本
      */
     private class Itr implements Iterator<E> {
+        // 下一个迭代位置
         int cursor;       // index of next element to return
+        // 上一次迭代位置，如果没有将返回-1
         int lastRet = -1; // index of last element returned; -1 if no such
+        // 操作数，确保在操作的的过程中 集合没有被别的线程操作
         int expectedModCount = modCount;
-
+        // cursor != size 表明还有未被迭代的，此时返回true
         public boolean hasNext() {
             return cursor != size;
         }
 
         @SuppressWarnings("unchecked")
         public E next() {
+            // 判断操作数 是否发生了变化 如果变化则跑出错误
             checkForComodification();
+            // i 为当前索引位置
             int i = cursor;
+            // i >= size 则没有相关元素 抛错
             if (i >= size)
                 throw new NoSuchElementException();
+            // 集合的数组
             Object[] elementData = ArrayList.this.elementData;
+            // i >= elementData.length 可能是多线程的操作导致数组长度发生了变化
             if (i >= elementData.length)
                 throw new ConcurrentModificationException();
+            // 此时设置的为想一次将要读取数组的位置
             cursor = i + 1;
+            // 返回迭代的值 同时设置 本次读取的位置即上一次的读取索引位置
             return (E) elementData[lastRet = i];
         }
 
+        // 移除当前迭代的元素
         public void remove() {
+            // lastRet < 0 设置 此时属于非法的状态 两种可能 一种是直接的迭代器刚生成
+            // 还一种可能是连续移除第二次
             if (lastRet < 0)
                 throw new IllegalStateException();
+            // 判断操作数 是否发生了变化 如果变化则跑出错误
             checkForComodification();
-
+            // 执行移除方法
             try {
                 ArrayList.this.remove(lastRet);
+                // 同时设置下次将要读取的光标位置
                 cursor = lastRet;
+                // 一次移除后 将上一次读取的位置设置为-1 不能同时移除两次
                 lastRet = -1;
+                // 判断操作数 如果不对 将抛错
                 expectedModCount = modCount;
             } catch (IndexOutOfBoundsException ex) {
+                // ArrayList 非线程安全，在操作过程中需要验证是否收到了 其他线程的干扰
                 throw new ConcurrentModificationException();
             }
         }
 
+        // 在光标处 对 集合中数组执行consumer.accept 方法
         @Override
         @SuppressWarnings("unchecked")
         public void forEachRemaining(Consumer<? super E> consumer) {
+           // 确定 consumer 不为 null，如果是则报错
             Objects.requireNonNull(consumer);
+            // 获取集合元素的 数量
             final int size = ArrayList.this.size;
+            // 设置将要读取的位置 为当前光标所在的位置
             int i = cursor;
+            // 判断 i 大于 元素数量 则没有需要执行的 直接返回了
             if (i >= size) {
                 return;
             }
+            // 获取 集合元素数组
             final Object[] elementData = ArrayList.this.elementData;
+            // 长度判断
             if (i >= elementData.length) {
                 throw new ConcurrentModificationException();
             }
+            // 循环遍历 同时判断 操作数是否发生了变化
             while (i != size && modCount == expectedModCount) {
                 consumer.accept((E) elementData[i++]);
             }
             // update once at end of iteration to reduce heap write traffic
+            // 更新光标位置
             cursor = i;
+            // 更新上一次光标的位置
             lastRet = i - 1;
             checkForComodification();
         }
-
+        // 操作数 判断 是否与期望的保持一致
         final void checkForComodification() {
             if (modCount != expectedModCount)
                 throw new ConcurrentModificationException();
@@ -714,11 +729,13 @@ public class ArrayList<E> extends AbstractList<E>
     }
 
     /**
-     * An optimized version of AbstractList.ListItr
+     * 一个对AbstractList.ListItr的优化
      */
     private class ListItr extends Itr implements ListIterator<E> {
+        // 构造方法
         ListItr(int index) {
             super();
+            // 设置光标的位置
             cursor = index;
         }
 
