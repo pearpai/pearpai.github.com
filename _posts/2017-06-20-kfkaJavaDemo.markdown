@@ -7,9 +7,7 @@ header-img: "img/tag-bg.jpg"
 catalog: true
 tags:
     - kafka
-    - Blog
     - Java
-    - 中间件
 ---
 ## pom.xml
 ```xml

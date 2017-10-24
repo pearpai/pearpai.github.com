@@ -7,7 +7,6 @@ header-img: "img/redis-bg.png"
 catalog: true
 tags:
     - 数据库
-    - Blog
     - Redis
 ---
 这两天在学习Redis集群部署，因为没有多余的物理机，所以准备在docker中实现，突发奇想这如果部署到docker中本系统资源就不多，是不是做一些系统上的优化呢？想来就百度了一下，需要优化的地方还是蛮多的，列出了找到的优化方式。

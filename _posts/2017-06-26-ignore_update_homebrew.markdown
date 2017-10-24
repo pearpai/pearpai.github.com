@@ -6,9 +6,7 @@ author:     "Pearpai"
 header-img: "img/homebrew.jpg"
 catalog: true
 tags:
-    - 开发环境
     - Blog
-    - homebrew
 ---
 
 不更新 export HOMEBREW_NO_AUTO_UPDATE=true
