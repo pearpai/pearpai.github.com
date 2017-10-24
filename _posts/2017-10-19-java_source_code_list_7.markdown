@@ -6,9 +6,7 @@ author:     "Pearpai"
 header-img: "img/starry_sky.jpeg"
 catalog: true
 tags:
-    - List
-    - 源码
-    - java
+    - java List 源码
 ---
 ### 感慨
 将ArrayList 注释一遍真的好累，需要耐心，坚持，首次这样写博客应该有很多问题，如果各位有说明建议的话 欢迎指教啊。

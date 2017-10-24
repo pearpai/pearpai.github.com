@@ -6,9 +6,7 @@ author:     "Pearpai"
 header-img: "img/starry_sky.jpeg"
 catalog: true
 tags:
-    - List
-    - 源码
-    - java
+    - java List 源码
 ---
 ## 接口方法功能简要说明
 具体的实现将在具体的类中进行相关分析

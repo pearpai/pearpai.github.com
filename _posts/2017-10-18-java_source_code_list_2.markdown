@@ -6,9 +6,7 @@ author:     "Pearpai"
 header-img: "img/starry_sky.jpeg"
 catalog: true
 tags:
-    - List
-    - 源码
-    - java
+    - java List 源码
 ---
 ## 源码阅读
 ```java
