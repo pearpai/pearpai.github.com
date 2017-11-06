@@ -19,6 +19,10 @@ tags:
 ## mvn 结构
 - 本人将将项目置于一个父pom.xml文件中的 pom 父pom 文件 将随时更新，我会对新加入依赖等 进行相关说明。
 
+## 环境启动
+vm<br>
+-Dspring.profiles.active=dev-2
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

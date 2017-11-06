@@ -10,3 +10,5 @@ tags:
 ---
 # 当前架构图
  ![添加网关架构图](/img/blog/springcloud/zuul-server-1.png)
+
+- 此架构中添加了网关zuul、feign 断路器
