@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "SpringCloud 框架实战学习（4）--- Feign"
+title:      "SpringCloud 框架实战学习（4）--- Feign 内部负载均衡调用"
 date:       UTC2017-11-06 15:38:00
 author:     "Pearpai"
 header-img: "img/starry_sky.jpeg"
@@ -11,7 +11,7 @@ tags:
 接着上一篇的内容 feign
 ## 当前架构图
  ![添加网关架构图](/img/blog/springcloud/zuul-server-1.png)
- 
+
 - feign 提供了 fallback 负载均衡
 
 ## 项目依赖
