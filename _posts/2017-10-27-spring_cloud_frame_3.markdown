@@ -304,3 +304,5 @@ public class MyErrorController implements ErrorController {
     }
 }
 ```
+## 后续feign
+此节主要内容是对zull 网关的 学习，主要包括断路器、错误返回以及相关配置。下节是对feign的集成：service 层负载均衡以及熔断。
