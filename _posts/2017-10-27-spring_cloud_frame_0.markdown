@@ -3,7 +3,7 @@ layout:     post
 title:      "SpringCloud 框架实战学习（0）--- 目录"
 date:       UTC2017-10-27 11:37:00
 author:     "Pearpai"
-header-img: "img/starry_sky.jpeg"
+header-img: "img/head/spring-cloud-head.jpeg"
 catalog: true
 tags:
     - SpringCloud

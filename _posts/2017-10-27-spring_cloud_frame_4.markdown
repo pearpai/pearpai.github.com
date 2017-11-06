@@ -3,7 +3,7 @@ layout:     post
 title:      "SpringCloud 框架实战学习（4）--- Feign 内部负载均衡调用"
 date:       UTC2017-11-06 15:38:00
 author:     "Pearpai"
-header-img: "img/starry_sky.jpeg"
+header-img: "img/head/spring-cloud-head.jpeg"
 catalog: true
 tags:
     - SpringCloud

@@ -3,7 +3,7 @@ layout:     post
 title:      "SpringCloud 框架实战学习（2）--- 高可用配置中心、消息总线"
 date:       UTC2017-10-27 15:38:00
 author:     "Pearpai"
-header-img: "img/starry_sky.jpeg"
+header-img: "img/head/spring-cloud-head.jpeg"
 catalog: true
 tags:
     - SpringCloud

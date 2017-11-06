@@ -3,7 +3,7 @@ layout:     post
 title:      "SpringCloud 框架实战学习（1）--- 高可用服务注册中心"
 date:       UTC2017-10-27 13:43:00
 author:     "Pearpai"
-header-img: "img/starry_sky.jpeg"
+header-img: "img/head/spring-cloud-head.jpeg"
 catalog: true
 tags:
     - SpringCloud
