@@ -65,6 +65,25 @@ vm<br>
         <!-- 发现服务器 2 -->
         <module>ridge-discovery-server2</module>
 
+        <!-- 高可用配置中心 -->
+        <module>ridge-config-service</module>
+        <module>ridge-config-service-2</module>
+
+        <!-- 网关 -->
+        <module>ridge-getway-service</module>
+
+        <!-- 客户端demo -->
+        <module>ridge-client</module>
+        <module>ridge-client-2</module>
+        <module>ridge-client-b</module>
+
+        <!--ridge-feign-service-->
+        <module>ridge-feign-service</module>
+
+        <!-- 跟踪服务 -->
+        <module>ridge-zipkin-server</module>
+
+        <module>ridge-core</module>
     </modules>
 
 
@@ -99,6 +118,17 @@ vm<br>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -121,6 +151,7 @@ vm<br>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
 ```
