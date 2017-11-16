@@ -77,3 +77,36 @@ default void forEach(BiConsumer<? super K, ? super V> action) {
      }
  }
 ```
+### replaceAll
+```java
+default void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    // 验证非null
+    Objects.requireNonNull(function);
+    // 获取到映射表的set视图，并对视图进行遍历
+    for (Map.Entry<K, V> entry : entrySet()) {
+        K k;
+        V v;
+        try {
+            k = entry.getKey();
+            v = entry.getValue();
+        } catch(IllegalStateException ise) {
+            // this usually means the entry is no longer in the map.
+            throw new ConcurrentModificationException(ise);
+        }
+
+        // ise thrown from function is not a cme.
+        v = function.apply(k, v);
+
+        try {
+            entry.setValue(v);
+        } catch(IllegalStateException ise) {
+            // this usually means the entry is no longer in the map.
+            throw new ConcurrentModificationException(ise);
+        }
+    }
+}
+```
+### 写感
+- 到这里 map的源码中的default基本比较简单容易理解就不全部进行注释了。
+- 1.8 中提供了default 功能确实给后面的接口继承中提供了 方法的构建思路，在后续自己的项目开发中不妨使用这一的方式。
+- 1.8 提供了map的本地缓存处理方式，compute操作是一个很不错的功能，有兴趣的同学可以尝试一下。
