@@ -92,6 +92,7 @@ static final int tableSizeFor(int cap) {
 ```
 ### 节点实例
 - 节点实例 继承了Map.Entry<K,V> 。
+
 ```Java
 // key 值hash 算法
 static final int hash(Object key) {
@@ -147,7 +148,7 @@ static class Node<K,V> implements Map.Entry<K,V> {
 }
 ```
 
-### 数据存入
+### 数据存入 put(K key, V value)
 ```Java
 public V put(K key, V value) {
     // 存入前 先对key进行hash 运算 得到hash值
@@ -173,17 +174,23 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
     // 如果 table == null 或者 length=0 即 初始话 或者重构 table
     if ((tab = table) == null || (n = tab.length) == 0)
         n = (tab = resize()).length;
-    // 此时进行hash与运算
+    // 此时进行hash与运算 如果计算出的 tab[i] == null即此处位置没有存入过数据
+    // 此时直接存入即可
     if ((p = tab[i = (n - 1) & hash]) == null)
         tab[i] = newNode(hash, key, value, null);
     else {
+        // 即此时tab[i] != null
         Node<K,V> e; K k;
         if (p.hash == hash &&
             ((k = p.key) == key || (key != null && key.equals(k))))
+            // 这里的功能其实就是替换 value
+            // 将e 指向 p
             e = p;
         else if (p instanceof TreeNode)
+            // 红黑树处理 putTreeVal
             e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
         else {
+            // 这里是链表
             for (int binCount = 0; ; ++binCount) {
                 if ((e = p.next) == null) {
                     p.next = newNode(hash, key, value, null);
