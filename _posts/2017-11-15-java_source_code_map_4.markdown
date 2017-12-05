@@ -190,24 +190,29 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
             // 红黑树处理 putTreeVal
             e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
         else {
-            // 这里是链表
+            // 这里是链表处理方式
             for (int binCount = 0; ; ++binCount) {
                 if ((e = p.next) == null) {
                     p.next = newNode(hash, key, value, null);
+                    // 当链表的长度 大于等于8 将链表进行红黑树转换
                     if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                         treeifyBin(tab, hash);
                     break;
                 }
+                // todo 这里说明是 链表中有相同的key 放在后面 是因为 if 第一个条件判断 可以进行处理，这里处理的是 中间的
                 if (e.hash == hash &&
                     ((k = e.key) == key || (key != null && key.equals(k))))
                     break;
                 p = e;
             }
         }
+        // 替换原先的值
         if (e != null) { // existing mapping for key
             V oldValue = e.value;
+            // 如果onlyIfAbsent=true 将不替换原有的值
             if (!onlyIfAbsent || oldValue == null)
                 e.value = value;
+            // linkhashmap 调用
             afterNodeAccess(e);
             return oldValue;
         }
@@ -215,6 +220,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
     ++modCount;
     if (++size > threshold)
         resize();
+    // linkhashmap 调用
     afterNodeInsertion(evict);
     return null;
 }
