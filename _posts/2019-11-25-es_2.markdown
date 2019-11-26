@@ -1,0 +1,92 @@
+---
+layout:     post
+title:      "Elasticsearch 学习——修改数据"
+date:       UTC2019-11-25 10:06:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+# Elasticsearch 学习——修改数据
+
+## 插入数据id为1
+```
+curl -X PUT "localhost:9200/customer/_doc/1?pretty&pretty" -H 'Content-Type: application/json' -d'
+{
+  "name": "John Doe"
+}
+'
+```
+### 返回
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+```
+- 如果两次对通一个id数据进行插入，数据将被replace
+
+## 插入第二条数据 id为2
+```
+curl -X PUT "localhost:9200/customer/_doc/2?pretty&pretty" -H 'Content-Type: application/json' -d'
+{
+  "name": "Jane Doe"
+}
+'
+```
+### 返回
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "2",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+```
+
+## 插入一条未包含id的数据
+- 没有id系统将随机生成一个id
+
+```
+curl -X POST "localhost:9200/customer/_doc?pretty&pretty" -H 'Content-Type: application/json' -d'
+{
+  "name": "Jane Doe"
+}
+'
+```
+### 返回
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "olmJpW4B7uUMAbutvMcm",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 2,
+  "_primary_term" : 1
+}
+```

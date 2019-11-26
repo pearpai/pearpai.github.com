@@ -1,0 +1,100 @@
+---
+layout:     post
+title:      "Elasticsearch 学习"
+date:       UTC2019-11-25 09:39:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+## 基本查询
+```
+# 查询健康状况
+curl -X GET "localhost:9200/_cat/health?v&pretty"
+
+# 查询节点数
+curl -X GET "localhost:9200/_cat/nodes?v&pretty"
+
+# 查询索引
+curl -X GET "localhost:9200/_cat/indices?v&pretty"
+
+
+```
+## 创建index
+```
+curl -X PUT "localhost:9200/customer?pretty&pretty"
+curl -X GET "localhost:9200/_cat/indices?v&pretty"
+
+```
+**返回**：
+```
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "customer"
+}
+
+health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   customer pc9B-R1RQZGAY-n9nxj5Vw   5   1          0            0       460b           460b
+```
+
+## 简单的插入查询
+### 根据id插入
+```
+curl -X PUT "localhost:9200/customer/_doc/1?pretty&pretty" -H 'Content-Type: application/json' -d'
+{
+  "name": "John Doe"
+}
+'
+```
+### 返回
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+```
+### 根据id查询
+```
+curl -X GET "localhost:9200/customer/_doc/1?pretty&pretty"
+```
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "name" : "John Doe"
+  }
+}
+```
+
+## 删除index
+```
+curl -X DELETE "localhost:9200/customer?pretty&pretty"
+curl -X GET "localhost:9200/_cat/indices?v&pretty"
+
+```
+### 返回
+```
+{
+  "acknowledged" : true
+}
+
+health status index uuid pri rep docs.count docs.deleted store.size pri.store.size
+```
