@@ -1,0 +1,118 @@
+---
+layout:     post
+title:      "Elasticsearch 学习——批处理数据(5)"
+date:       UTC2019-11-25 11:08:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+# Elasticsearch 学习——批处理数据(5)
+
+## 通过id对数据进行删除
+```
+curl -X POST "localhost:9200/customer/_doc/_bulk?pretty&pretty" -H 'Content-Type: application/json' -d'
+{"index":{"_id":"1"}}
+{"name": "John Doe" }
+{"index":{"_id":"2"}}
+{"name": "Jane Doe" }
+'
+
+```
+### 返回
+```
+{
+  "took" : 33,
+  "errors" : false,
+  "items" : [
+    {
+      "index" : {
+        "_index" : "customer",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_version" : 6,
+        "result" : "updated",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 6,
+        "_primary_term" : 1,
+        "status" : 200
+      }
+    },
+    {
+      "index" : {
+        "_index" : "customer",
+        "_type" : "_doc",
+        "_id" : "2",
+        "_version" : 1,
+        "result" : "created",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 2,
+        "_primary_term" : 1,
+        "status" : 201
+      }
+    }
+  ]
+}
+```
+
+## 更新删除
+```
+curl -X POST "localhost:9200/customer/_doc/_bulk?pretty&pretty" -H 'Content-Type: application/json' -d'
+{"update":{"_id":"1"}}
+{"doc": { "name": "John Doe becomes Jane Doe" } }
+{"delete":{"_id":"2"}}
+'
+```
+
+### 返回
+```
+{
+  "took" : 33,
+  "errors" : false,
+  "items" : [
+    {
+      "update" : {
+        "_index" : "customer",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_version" : 7,
+        "result" : "updated",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 7,
+        "_primary_term" : 1,
+        "status" : 200
+      }
+    },
+    {
+      "delete" : {
+        "_index" : "customer",
+        "_type" : "_doc",
+        "_id" : "2",
+        "_version" : 2,
+        "result" : "deleted",
+        "_shards" : {
+          "total" : 2,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 3,
+        "_primary_term" : 1,
+        "status" : 200
+      }
+    }
+  ]
+}
+```

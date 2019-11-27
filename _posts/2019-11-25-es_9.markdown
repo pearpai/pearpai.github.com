@@ -1,0 +1,133 @@
+---
+layout:     post
+title:      "Elasticsearch 学习——执行聚合(9)"
+date:       UTC2019-11-25 11:08:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+# Elasticsearch 学习——执行聚合(9)
+- aggs 聚合
+- size=0 不返回基础数据
+- group_by_state 自定义名称
+- terms 条件排序
+- field 参数
+- keyword 不分词
+
+```
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "state.keyword"
+      }
+    }
+  }
+}
+'
+```
+
+## 聚合排序后求平均值
+- avg 求平均
+```
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "state.keyword"
+      },
+      "aggs": {
+        "average_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+'
+```
+
+##  对state聚合，求balance平均值并对平均值进行排倒序
+```
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "state.keyword",
+        "order": {
+          "average_balance": "desc"
+        }
+      },
+      "aggs": {
+        "average_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+'
+```
+
+## 聚合查询
+- range 范围
+- field 字段
+- ranges 范围区间列表
+- 得到聚合数据后通过gender性别排序
+- 对balance数据进行求平均值
+
+```
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_age": {
+      "range": {
+        "field": "age",
+        "ranges": [
+          {
+            "from": 20,
+            "to": 30
+          },
+          {
+            "from": 30,
+            "to": 40
+          },
+          {
+            "from": 40,
+            "to": 50
+          }
+        ]
+      },
+      "aggs": {
+        "group_by_gender": {
+          "terms": {
+            "field": "gender.keyword"
+          },
+          "aggs": {
+            "average_balance": {
+              "avg": {
+                "field": "balance"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+'
+
+```

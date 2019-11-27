@@ -1,0 +1,34 @@
+---
+layout:     post
+title:      "Elasticsearch 学习——删除数据(4)"
+date:       UTC2019-11-25 11:06:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+# Elasticsearch 学习——删除数据(4)
+
+## 通过id对数据进行删除
+```
+curl -X DELETE "localhost:9200/customer/_doc/2?pretty&pretty"
+
+```
+### 返回
+```
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "2",
+  "_version" : 2,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 1,
+  "_primary_term" : 1
+}
+```

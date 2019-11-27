@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Elasticsearch 学习"
+title:      "Elasticsearch 学习(1)"
 date:       UTC2019-11-25 09:39:00
 author:     "Pearpai"
 header-img: "img/head/other_think.png"
@@ -8,6 +8,12 @@ catalog: true
 tags:
     - Elasticsearch
 ---
+# Elasticsearch 学习(1)
+```
+echo "vm.max_map_count=262144" > /etc/sysctl.conf
+sysctl -p
+```
+
 ## 基本查询
 ```
 # 查询健康状况

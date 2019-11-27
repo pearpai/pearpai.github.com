@@ -1,0 +1,33 @@
+---
+layout:     post
+title:      "Elasticsearch 学习——执行过滤(8)"
+date:       UTC2019-11-25 11:08:00
+author:     "Pearpai"
+header-img: "img/head/other_think.png"
+catalog: true
+tags:
+    - Elasticsearch
+---
+# Elasticsearch 学习——执行过滤(8)
+- match_all 匹配所有
+- 数据过滤range范围过滤，字段balace 大于等于20000 小于等于30000
+
+```
+curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "bool": {
+      "must": { "match_all": {} },
+      "filter": {
+        "range": {
+          "balance": {
+            "gte": 20000,
+            "lte": 30000
+          }
+        }
+      }
+    }
+  }
+}
+'
+```

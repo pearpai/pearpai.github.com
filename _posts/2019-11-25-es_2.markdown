@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Elasticsearch 学习——修改数据"
+title:      "Elasticsearch 学习——添加数据(2)"
 date:       UTC2019-11-25 10:06:00
 author:     "Pearpai"
 header-img: "img/head/other_think.png"
@@ -8,7 +8,7 @@ catalog: true
 tags:
     - Elasticsearch
 ---
-# Elasticsearch 学习——修改数据
+# Elasticsearch 学习——添加数据(2)
 
 ## 插入数据id为1
 ```
